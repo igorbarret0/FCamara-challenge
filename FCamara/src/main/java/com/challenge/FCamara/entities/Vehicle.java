@@ -17,17 +17,19 @@ public class Vehicle {
 
    private String color;
 
+   @Column(unique = true)
    private String plate;
 
-   private String type;
+   @Enumerated(EnumType.STRING)
+   private VehicleType type;
 
-   @ManyToOne(cascade = CascadeType.ALL)
+   @ManyToOne()
    @JoinColumn(name = "establishment_id")
    private Establishment establishment;
 
     public Vehicle() {}
 
-    public Vehicle(String brand, String model, String color, String plate, String type, Establishment establishment) {
+    public Vehicle(String brand, String model, String color, String plate, VehicleType type, Establishment establishment) {
         this.brand = brand;
         this.model = model;
         this.color = color;
@@ -76,11 +78,11 @@ public class Vehicle {
         this.plate = plate;
     }
 
-    public String getType() {
+    public VehicleType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(VehicleType type) {
         this.type = type;
     }
 

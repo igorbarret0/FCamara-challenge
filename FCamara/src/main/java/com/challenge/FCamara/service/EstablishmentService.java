@@ -52,11 +52,11 @@ public class EstablishmentService {
         if (request.phone() != null) {
             establishment.setPhone(request.phone());
         }
-        if (request.carParkingSpaces() != null) {
-            establishment.setCarParkingSpaces(request.carParkingSpaces());
+        if (request.addCarParkingSpaces() != 0) {
+            establishment.setCarParkingSpaces(establishment.getCarParkingSpaces() + request.addCarParkingSpaces());
         }
-        if (request.motorcycleParkingSpaces() != null) {
-            establishment.setMotorcycleParkingSpaces(request.motorcycleParkingSpaces());
+        if (request.addMotorcycleParkingSpaces() != 0) {
+            establishment.setMotorcycleParkingSpaces(establishment.getMotorcycleParkingSpaces() + request.addMotorcycleParkingSpaces());
         }
 
         establishmentRepository.save(establishment);

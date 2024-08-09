@@ -5,8 +5,8 @@ public record UpdateEstablishmentDto(
         String name,
         String address,
         String phone,
-        Integer carParkingSpaces,
-        Integer motorcycleParkingSpaces
+        int addCarParkingSpaces,
+        int addMotorcycleParkingSpaces
 
 ) {
 }
