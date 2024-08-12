@@ -16,10 +16,13 @@ public class VehicleService {
 
     private VehicleRepository vehicleRepository;
     private EstablishmentRepository establishmentRepository;
+    private MonitoringService monitoringService;
 
-    public VehicleService(VehicleRepository vehicleRepository, EstablishmentRepository establishmentRepository) {
+    public VehicleService(VehicleRepository vehicleRepository, EstablishmentRepository establishmentRepository,
+                          MonitoringService monitoringService) {
         this.vehicleRepository = vehicleRepository;
         this.establishmentRepository = establishmentRepository;
+        this.monitoringService = monitoringService;
     }
 
     public void parkingVehicle(Long establishmentId ,ParkingVehicleDto request) {
@@ -32,6 +35,7 @@ public class VehicleService {
         if (vehicle.getType() == VehicleType.CAR) {
             if (establishment.getCarParkingSpaces() > 0) {
                 vehicleRepository.save(vehicle);
+                monitoringService.registerEntry();
                 establishment.setCarParkingSpaces(establishment.getCarParkingSpaces() - 1);
             } else {
                 throw new RuntimeException("There is no space for parking a car");
@@ -39,6 +43,7 @@ public class VehicleService {
         } else {
             if (establishment.getMotorcycleParkingSpaces() > 0) {
                 vehicleRepository.save(vehicle);
+                monitoringService.registerEntry();
                 establishment.setMotorcycleParkingSpaces(establishment.getMotorcycleParkingSpaces() - 1);
             } else {
                 throw new RuntimeException("There is no space for parking a motorcycle");
@@ -98,8 +103,10 @@ public class VehicleService {
         var establishment = vehicle.getEstablishment();
         if (vehicle.getType() == VehicleType.CAR) {
             establishment.setCarParkingSpaces(establishment.getCarParkingSpaces() + 1);
+            monitoringService.registerExit();
         } else {
             establishment.setMotorcycleParkingSpaces(establishment.getMotorcycleParkingSpaces() + 1);
+            monitoringService.registerExit();
         }
 
         vehicleRepository.delete(vehicle);
