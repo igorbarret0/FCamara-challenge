@@ -30,6 +30,9 @@ public class VehicleServiceTest {
     @Mock
     EstablishmentRepository establishmentRepository;
 
+    @Mock
+    MonitoringService monitoringService;
+
     @InjectMocks
     VehicleService vehicleService;
 
@@ -47,6 +50,7 @@ public class VehicleServiceTest {
         vehicleService.parkingVehicle(1L, VehicleFactory.buildCarParkingVehicleDto());
 
         verify(vehicleRepository, times(1)).save(any(Vehicle.class));
+        verify(monitoringService, times(1)).registerEntry();
         assertEquals(establishment.getCarParkingSpaces(), 9);
     }
 
@@ -174,6 +178,7 @@ public class VehicleServiceTest {
 
         vehicleService.exitParking(1L);
 
+        verify(monitoringService, times(1)).registerExit();
         assertEquals(vehicle.getEstablishment().getCarParkingSpaces(), 11);
 
     }
