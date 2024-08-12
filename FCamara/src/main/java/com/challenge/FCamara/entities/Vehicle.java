@@ -1,6 +1,8 @@
 package com.challenge.FCamara.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_vehicles")
@@ -11,16 +13,21 @@ public class Vehicle {
     @Column(name = "vehicle_id")
     private Long id;
 
-   private String brand;
+    @NotBlank
+    private String brand;
 
-   private String model;
+    @NotBlank
+    private String model;
 
-   private String color;
+    @NotBlank
+    private String color;
 
    @Column(unique = true)
+   @NotBlank
    private String plate;
 
    @Enumerated(EnumType.STRING)
+   @NotNull
    private VehicleType type;
 
    @ManyToOne()

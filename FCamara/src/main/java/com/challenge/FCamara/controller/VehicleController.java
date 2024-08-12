@@ -4,6 +4,7 @@ import com.challenge.FCamara.dtos.ListVehiclesDto;
 import com.challenge.FCamara.dtos.ParkingVehicleDto;
 import com.challenge.FCamara.dtos.UpdateVehicleDto;
 import com.challenge.FCamara.service.VehicleService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,7 @@ public class VehicleController {
 
     @PostMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> parkingVehicle(@PathVariable(name = "id") Long id,
+    public ResponseEntity<Void> parkingVehicle(@Valid @PathVariable(name = "id") Long id,
                                                @RequestBody ParkingVehicleDto request){
 
         vehicleService.parkingVehicle(id, request);

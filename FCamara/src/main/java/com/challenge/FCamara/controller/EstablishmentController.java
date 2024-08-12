@@ -4,6 +4,8 @@ import com.challenge.FCamara.dtos.SaveEstablishmentDto;
 import com.challenge.FCamara.dtos.UpdateEstablishmentDto;
 import com.challenge.FCamara.entities.Establishment;
 import com.challenge.FCamara.service.EstablishmentService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class EstablishmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveEstablishment(@RequestBody SaveEstablishmentDto request) {
+    public ResponseEntity<Void> saveEstablishment(@Valid @RequestBody SaveEstablishmentDto request) {
 
         establishmentService.saveEstablishment(request);
         return ResponseEntity.ok().build();

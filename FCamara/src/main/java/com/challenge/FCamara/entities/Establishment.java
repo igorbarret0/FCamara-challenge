@@ -1,6 +1,8 @@
 package com.challenge.FCamara.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -13,16 +15,22 @@ public class Establishment {
     @Column(name = "establishment_id")
     private Long id;
 
+    @NotBlank
     private String name;
 
+    @NotBlank
     private String CNPJ;
 
+    @NotBlank
     private String address;
 
+    @NotBlank
     private String phone;
 
+    @NotNull
     private int carParkingSpaces;
 
+    @NotNull
     private int motorcycleParkingSpaces;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "establishment")
